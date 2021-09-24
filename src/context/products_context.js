@@ -14,7 +14,14 @@ import {
 } from '../actions'
 
 const initialState = {
-  isSidebarOpen:false
+  isSidebarOpen:false,
+  products_Loading:false,
+  products_Error:false,
+  products:[],
+  featured_products:[],
+  single_Product_Loading:false,
+  single_Product_Error:false,
+  single_Products:{}
 }
 
 const ProductsContext = React.createContext()
@@ -27,8 +34,29 @@ export const ProductsProvider = ({ children }) => {
   const closeSiebar = ()=>{
     dispatch({type:SIDEBAR_CLOSE})
   }
+  const FetchProductsData = async(url)=>{
+    dispatch({type:GET_PRODUCTS_BEGIN})
+    try{
+      const {data} = await axios.get(url)
+      dispatch({type:GET_PRODUCTS_SUCCESS,payload:data})
+    }catch{
+      dispatch({type:GET_PRODUCTS_ERROR})
+    }
+  }
+  const FetchSingleProductData = async (url)=>{
+    dispatch({type:GET_SINGLE_PRODUCT_BEGIN});
+    try{
+      const {data}=await axios.get(url);
+      dispatch({type:GET_SINGLE_PRODUCT_SUCCESS,payload:data})
+    }catch{
+      dispatch({type:GET_SINGLE_PRODUCT_ERROR})
+    }
+  }
+  useEffect(()=>{
+    FetchProductsData(url)
+  },[])
   return (
-    <ProductsContext.Provider value={{closeSiebar,openSidebar,...state}}>
+    <ProductsContext.Provider value={{FetchSingleProductData,closeSiebar,openSidebar,...state}}>
       {children}
     </ProductsContext.Provider>
   )
