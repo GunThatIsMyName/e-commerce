@@ -14,8 +14,8 @@ const filter_reducer = (state, action) => {
     case LOAD_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
-        filteredProducts:action.payload,
+        all_products: [action.payload],
+        filteredProducts:[action.payload],
       };
     case SET_GRIDVIEW:
       if(action.payload){
@@ -29,29 +29,31 @@ const filter_reducer = (state, action) => {
     case UPDATE_SORT:
       return{...state,sort:action.payload}
     case SORT_PRODUCTS:
-        const {filteredProducts: products, sort} = state;
+        const {filteredProducts, sort} = state;
         // let product = products;
         if (sort === 'price-lowest') {
-          products.sort((a, b) => {
+          filteredProducts.sort((a, b) => {
             return a.price - b.price;
           });
         }
         if (sort === 'price-highest') {
-          products.sort((a, b) => {
+          filteredProducts.sort((a, b) => {
             return b.price - a.price;
           });
         }
         if (sort === 'name-a') {
-          products.sort((a, b) => {
+          filteredProducts.sort((a, b) => {
             return a.name.localeCompare(b.name);
           });
         }
         if (sort === 'name-z') {
-          products.sort((a, b) => {
+          filteredProducts.sort((a, b) => {
             return b.name.localeCompare(a.name);
           });
         }
-        return {...state, products};
+        console.log(state.filteredProducts,"1")
+        console.log(state.all_products,"2")
+        return {...state, filteredProducts};
     default:
       throw new Error(`No Matching "${action.type}" - action type`);
   }
