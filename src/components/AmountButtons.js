@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 
 const AmountButtons = ({amount,increase,decrease}) => {
-  console.log(amount,"??")
   return <Wrapper>
     <FaMinus onClick={decrease} />
       <h2>{amount}</h2>

@@ -7,14 +7,44 @@ import {
   CLEAR_CART,
   COUNT_CART_TOTALS,
 } from '../actions'
-
-const initialState = {}
+const CART ="CART"
+const getLocalData = ()=>{
+  const getData = localStorage.getItem(CART);
+  if(getData !== null){
+    return JSON.parse(getData)
+  }
+  return []
+}
+const initialState = {
+  cart:getLocalData(),
+  total_items:0,
+  total_price:0,
+  total_amount:0,
+  shipping:534,
+}
 
 const CartContext = React.createContext()
 
 export const CartProvider = ({ children }) => {
+  const [state,dispatch]=useReducer(reducer,initialState)
+  const addToCart = ({id,stock,mainColor,product,amount})=>{
+    dispatch({type:ADD_TO_CART,payload:{id,product,stock,mainColor,amount}})
+  }
+  const removeItem = (id)=>{
+    dispatch({type:REMOVE_CART_ITEM,payload:id})
+  }
+  const toggleAmount = (id,value)=>{
+    dispatch({type:TOGGLE_CART_ITEM_AMOUNT,payload:{id,value}})
+  }
+  const clearCart = ()=>{
+    dispatch({type:CLEAR_CART})
+  }
+  useEffect(()=>{
+    dispatch({type:COUNT_CART_TOTALS})
+    localStorage.setItem(CART,JSON.stringify(state.cart))
+  },[state.cart])
   return (
-    <CartContext.Provider value='cart context'>{children}</CartContext.Provider>
+    <CartContext.Provider value={{toggleAmount,clearCart,removeItem,addToCart,...state}}>{children}</CartContext.Provider>
   )
 }
 // make sure use

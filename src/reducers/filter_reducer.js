@@ -97,7 +97,6 @@ const filter_reducer = (state, action) => {
         });
       }
       tempProducts = tempProducts.filter((item) => {
-        console.log({ current_price, max_price, min_price }, "curre");
         return current_price >= item.price;
       });
       if (shipping) {
