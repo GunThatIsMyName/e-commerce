@@ -7,26 +7,30 @@ import {
   CheckoutPage,
   ErrorPage,
   HomePage,
+  PrivateRoute,
   ProductsPage,
   SingleProductPage,
+  AuthWrapper,
 } from "../pages";
 
 const Router = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Sidebar />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/about" component={AboutPages} />
-        <Route exact path="/cart" component={CartPage} />
-        <Route exact path="/products" component={ProductsPage} />
-        <Route exact path="/products/:id" component={SingleProductPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
-        <Route exact path="*" component={ErrorPage} />
-      </Switch>
-      <Footer />
-    </BrowserRouter>
+    <AuthWrapper>
+      <BrowserRouter>
+        <Navbar />
+        <Sidebar />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/about" component={AboutPages} />
+          <Route exact path="/cart" component={CartPage} />
+          <Route exact path="/products" component={ProductsPage} />
+          <Route exact path="/products/:id" component={SingleProductPage} />
+          <PrivateRoute exact path="/checkout" children={<CheckoutPage />} />
+          <Route exact path="*" component={ErrorPage} />
+        </Switch>
+        <Footer />
+      </BrowserRouter>
+    </AuthWrapper>
   );
 };
 

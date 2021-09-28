@@ -9,7 +9,7 @@ import {
 const cart_reducer = (state, action) => {
   switch(action.type){
     case ADD_TO_CART:
-      const {id,mainColor,stock,amount,product}=action.payload;
+      const {id,mainColor,amount,product}=action.payload;
       let tempCart = state.cart.find(i=>i.id === id + mainColor)
       if(tempCart){
         const oldItem = state.cart.map(item=>{

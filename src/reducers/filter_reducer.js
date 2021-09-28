@@ -1,6 +1,5 @@
 import {
   LOAD_PRODUCTS,
-  SET_LISTVIEW,
   SET_GRIDVIEW,
   UPDATE_SORT,
   SORT_PRODUCTS,
@@ -76,8 +75,6 @@ const filter_reducer = (state, action) => {
         colors,
         current_price,
         shipping,
-        max_price,
-        min_price,
       } = state.filter;
       let tempProducts = [...all_products];
       if (text) {

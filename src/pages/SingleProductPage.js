@@ -25,6 +25,7 @@ const SingleProductPage = () => {
   const { id } = useParams();
   useEffect(() => {
     FetchSingleProductData(`${url}${id}`);
+    // eslint-disable-next-line
   }, [id]);
   useEffect(() => {
     let timeout;
@@ -34,6 +35,7 @@ const SingleProductPage = () => {
       }, 3000);
     }
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line
   }, [error]);
   if (loading) {
     return <Loading />;

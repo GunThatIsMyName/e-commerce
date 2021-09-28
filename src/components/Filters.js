@@ -82,6 +82,7 @@ const Filters = () => {
                   return (
                     <button
                       name="colors"
+                      key={idx}
                       onClick={updateFilter}
                       className={`all-btn ${colors === "all" ? "active" : ""}`}
                       data-color="all"
